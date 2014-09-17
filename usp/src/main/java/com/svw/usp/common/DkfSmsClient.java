@@ -100,6 +100,25 @@ public class DkfSmsClient {
         return result;
     }
 
+    //    public static void main(String[] arge) {
+    //        Map<Long, Long> count = new HashMap<Long, Long>();
+    //        count.put(0l, 0l);
+    //        count.put(1l, 0l);
+    //        count.put(2l, 0l);
+    //        count.put(3l, 0l);
+    //        count.put(4l, 0l);
+    //        count.put(5l, 0l);
+    //        count.put(6l, 0l);
+    //        count.put(7l, 0l);
+    //        count.put(8l, 0l);
+    //        count.put(9l, 0l);
+    //        for (int i = 0; i <= 1000000; i++) {
+    //            long a = System.currentTimeMillis() % 2;
+    //            count.put(a, count.get(a) + 1);
+    //        }
+    //        System.out.println(count);
+    //    }
+
     //    public static void main(String[] args) throws Exception {
     //        String mobile;
     //        try {
