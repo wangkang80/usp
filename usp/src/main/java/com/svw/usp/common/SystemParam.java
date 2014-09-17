@@ -21,5 +21,32 @@ package com.svw.usp.common;
  * </p>
  */
 public enum SystemParam {
-
+    /**
+     * <p>
+     * Field SEND_REAL: 是否真实发送,0:假发送,1:真发送
+     * </p>
+     */
+    SEND_REAL,
+    /**
+     * <p>
+     * Field SINGLE_SMS_CONTENT_LENGTH: 单条消息最大长度(计费单位=1),超过此长度,则为长短信(计费单位>1)
+     * </p>
+     */
+    SINGLE_SMS_CONTENT_LENGTH,
+    /**
+     * <p>
+     * Field MAX_SEND_SMS_CONTENT_LENGTH: 发送消息最大长度,超过此长度,拆分多条消息
+     * </p>
+     */
+    MAX_SEND_SMS_CONTENT_LENGTH, /**
+     * <p>
+     * Field SMS_SEND_TABLE_COUNT: 发送表的个数
+     * </p>
+     */
+    SMS_SEND_TABLE_COUNT, /**
+     * <p>
+     * Field SMS_BILLING_TABLE_COUNT: 计费表的个数
+     * </p>
+     */
+    SMS_BILLING_TABLE_COUNT
 }

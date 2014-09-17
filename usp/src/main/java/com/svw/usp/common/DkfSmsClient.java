@@ -100,18 +100,18 @@ public class DkfSmsClient {
         return result;
     }
 
-    //    public static void main(String[] args) {
+    //    public static void main(String[] args) throws Exception {
     //        String mobile;
     //        try {
-    //            mobile = DesTools.encrypt("13701718425", "C9eLew123456");
+    //            mobile = DesTools.encrypt("15221143497", "C9eLew123456");
     //            String user = DesTools.encrypt("12801", "C9eLew123456");
     //            String password = DesTools.encrypt("2W2i6o", "C9eLew123456");
-    //            String content = DesTools.encrypt("测试短信2", "C9eLew123456");
+    //            String content = DesTools.encrypt("测试短信1", "C9eLew123456");
     //            String mobiles[] = new String[] { mobile };
     //            DkfSmsClient clientDemo = new DkfSmsClient();
-    //            String result = clientDemo.sendSms(user, password, mobiles, content, "", "");
-    //            //String result = clientDemo.getUserSmsCount(user, password);
-    //            System1.out.println("result=" + result);
+    //            //String result = clientDemo.sendSms(user, password, mobiles, content, "", "");
+    //            String result = clientDemo.getUserSmsCount(user, password);
+    //            System.out.println("result=" + result);
     //        } catch (Exception e) {
     //            e.printStackTrace();
     //        }

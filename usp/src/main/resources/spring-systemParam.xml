@@ -22,6 +22,21 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <entry key="SCHEDULED_TRIGGER_LOG_KEEP_TIME" value="7" />
                 <entry key="APP_LOG_KEEP_TIME" value="7" />
                 <!-- 以下为自定义区域 -->
+
+
+                <!-- 是否真实发送,0:假发送,1:真发送 -->
+                <entry key="SEND_REAL" value="${USP.SEND_REAL}" />
+
+                <!-- 单条消息最大长度(计费单位=1),超过此长度,则为长短信(计费单位>1) -->
+                <entry key="SINGLE_SMS_CONTENT_LENGTH" value="${USP.SINGLE_SMS_CONTENT_LENGTH}" />
+                <!-- 发送消息最大长度,超过此长度,拆分多条消息 -->
+                <entry key="MAX_SEND_SMS_CONTENT_LENGTH" value="${USP.MAX_SEND_SMS_CONTENT_LENGTH}" />
+
+                <!-- 发送表的个数 -->
+                <entry key="SMS_SEND_TABLE_COUNT" value="${USP.SMS_SEND_TABLE_COUNT}" />
+                <!-- 计费表的个数 -->
+                <entry key="SMS_BILLING_TABLE_COUNT" value="${USP.SMS_BILLING_TABLE_COUNT}" />
+
             </util:map>
         </property>
     </bean>
