@@ -116,7 +116,7 @@ public class DkfSmsClient {
     //            long a = System.currentTimeMillis() % 2;
     //            count.put(a, count.get(a) + 1);
     //        }
-    //        System.out.println(count);
+    //        System1.out.println(count);
     //    }
 
     //    public static void main(String[] args) throws Exception {
@@ -130,7 +130,7 @@ public class DkfSmsClient {
     //            DkfSmsClient clientDemo = new DkfSmsClient();
     //            //String result = clientDemo.sendSms(user, password, mobiles, content, "", "");
     //            String result = clientDemo.getUserSmsCount(user, password);
-    //            System.out.println("result=" + result);
+    //            System1.out.println("result=" + result);
     //        } catch (Exception e) {
     //            e.printStackTrace();
     //        }
