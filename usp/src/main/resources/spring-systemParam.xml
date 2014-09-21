@@ -30,7 +30,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <!-- 单条消息最大长度(计费单位=1),超过此长度,则为长短信(计费单位>1) -->
                 <entry key="SINGLE_SMS_CONTENT_LENGTH" value="${USP.SINGLE_SMS_CONTENT_LENGTH}" />
                 <!-- 发送消息最大长度,超过此长度,拆分多条消息 -->
-                <entry key="MAX_SEND_SMS_CONTENT_LENGTH" value="${USP.MAX_SEND_SMS_CONTENT_LENGTH}" />
+                <entry key="MAX_SMS_CONTENT_LENGTH" value="${USP.MAX_SMS_CONTENT_LENGTH}" />
 
                 <!-- 发送表的个数 -->
                 <entry key="SMS_SEND_TABLE_COUNT" value="${USP.SMS_SEND_TABLE_COUNT}" />
