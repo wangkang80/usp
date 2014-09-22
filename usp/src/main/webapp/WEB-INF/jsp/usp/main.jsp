@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>test
-</body>
-</html>
+<script type="text/javascript" charset="UTF-8" src="${pageContext.request.contextPath}/static/usp/js/main.js"></script>
+<div id="userInfoTable_search">
+	<a id="userInfoTable_search_activate" href="#" data-options="plain:true" class="easyui-linkbutton">激活账户</a>
+	<a id="userInfoTable_search_displaySecretKey" href="#" data-options="plain:true" class="easyui-linkbutton">查看秘钥</a>
+	<a id="userInfoTable_search_refresh" href="#" data-options="plain:true" class="easyui-linkbutton">刷新</a>
+</div>
+<table id="userInfoTable"></table>
+<form style="display: none;" id="user_info_form_activate" name="user_info_form_activate" method="post"></form>
