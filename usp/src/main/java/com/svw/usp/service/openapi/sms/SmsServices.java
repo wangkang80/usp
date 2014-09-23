@@ -134,8 +134,8 @@ public class SmsServices extends BaseService {
 
         //获取必要参数
         int maxMobileList = new Integer(this.getPs().getServerParamter(SystemParam.MAX_MOBILE_LIST.name())).intValue();
-        int maxSmsContentLength = new Integer(this.getPs().getServerParamter(
-                SystemParam.MAX_SEND_SMS_CONTENT_LENGTH.name())).intValue();
+        int maxSmsContentLength = new Integer(this.getPs().getServerParamter(SystemParam.MAX_SMS_CONTENT_LENGTH.name()))
+                .intValue();
 
         //先按照号码列表拆分
         List<List<String>> mobiles = new ArrayList<List<String>>();

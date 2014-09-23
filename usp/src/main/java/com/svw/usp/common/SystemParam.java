@@ -35,10 +35,10 @@ public enum SystemParam {
     SINGLE_SMS_CONTENT_LENGTH,
     /**
      * <p>
-     * Field MAX_SEND_SMS_CONTENT_LENGTH: 发送消息最大长度,超过此长度,拆分多条消息
+     * Field MAX_SMS_CONTENT_LENGTH: 发送消息最大长度,超过此长度,拆分多条消息
      * </p>
      */
-    MAX_SEND_SMS_CONTENT_LENGTH, /**
+    MAX_SMS_CONTENT_LENGTH, /**
      * <p>
      * Field MAX_MOBILE_LIST: 号码列表最大长度,超出此长度,则拆分成多条消息
      * </p>

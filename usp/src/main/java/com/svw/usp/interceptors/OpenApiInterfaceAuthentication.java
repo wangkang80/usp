@@ -80,7 +80,7 @@ public class OpenApiInterfaceAuthentication implements HandlerInterceptor {
 
             //从head中获得用户名和密码
             String userName = httpServletRequest.getHeader(Constants.HTTP_REQUEST_HEADER_USERNAME);
-            String password = httpServletRequest.getHeader(Constants.HTTP_REQUEST_HEADER_USERNAME);
+            String password = httpServletRequest.getHeader(Constants.HTTP_REQUEST_HEADER_PASSWORD);
 
             //都必须存在
             if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
@@ -121,8 +121,6 @@ public class OpenApiInterfaceAuthentication implements HandlerInterceptor {
                 responseVo = new ResponseVo();
                 responseVo.setResponseStatus(Constants.SEND_SMS_STATUS_99999999);
                 this.logger.error("未知错误:", e);
-            } else {
-                this.logger.info("校验错误:", e.getMessage());
             }
 
             //设置响应时间

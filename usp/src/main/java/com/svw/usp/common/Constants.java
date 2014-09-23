@@ -27,13 +27,13 @@ public class Constants {
 
     /**
      * <p>
-     * Field HTTP_REQUEST_HEADER_USERNAME: TODO
+     * Field HTTP_REQUEST_HEADER_USERNAME: 用户名
      * </p>
      */
     public static final String HTTP_REQUEST_HEADER_USERNAME = "userName";
     /**
      * <p>
-     * Field HTTP_REQUEST_HEADER_PASSWORD: TODO
+     * Field HTTP_REQUEST_HEADER_PASSWORD: 密码
      * </p>
      */
     public static final String HTTP_REQUEST_HEADER_PASSWORD = "password";

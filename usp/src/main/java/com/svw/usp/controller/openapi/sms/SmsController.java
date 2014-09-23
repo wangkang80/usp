@@ -166,16 +166,12 @@ public class SmsController extends BaseController {
             //判断是否有余额
             if (!ss.checkSmsCount(userName)) {
                 responseSendSmsVo = new ResponseSendSmsVo();
-                responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_8);
+                responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_9);
                 throw new Exception("短信余额不足,请充值");
             }
 
             //保存
-            try {
-                responseSendSmsVo = this.ss.sendSms(receiveDate, userName, requestSendSmsVo);
-            } catch (Throwable ex) {
-                throw new Exception("保存消息失败");
-            }
+            responseSendSmsVo = this.ss.sendSms(receiveDate, userName, requestSendSmsVo);
 
         } catch (Throwable e) {
 
