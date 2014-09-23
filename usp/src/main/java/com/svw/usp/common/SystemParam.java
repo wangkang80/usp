@@ -40,6 +40,11 @@ public enum SystemParam {
      */
     MAX_SEND_SMS_CONTENT_LENGTH, /**
      * <p>
+     * Field MAX_MOBILE_LIST: 号码列表最大长度,超出此长度,则拆分成多条消息
+     * </p>
+     */
+    MAX_MOBILE_LIST, /**
+     * <p>
      * Field SMS_SEND_TABLE_COUNT: 发送表的个数
      * </p>
      */

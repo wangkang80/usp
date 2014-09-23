@@ -32,6 +32,10 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <!-- 发送消息最大长度,超过此长度,拆分多条消息 -->
                 <entry key="MAX_SMS_CONTENT_LENGTH" value="${USP.MAX_SMS_CONTENT_LENGTH}" />
 
+                <!-- 号码列表最大长度,超出此长度,则拆分成多条消息 -->
+                <entry key="MAX_MOBILE_LIST" value="${USP.MAX_MOBILE_LIST}" />
+
+
                 <!-- 发送表的个数 -->
                 <entry key="SMS_SEND_TABLE_COUNT" value="${USP.SMS_SEND_TABLE_COUNT}" />
                 <!-- 计费表的个数 -->

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.svw.usp.mapper.expand.TuSmsSendMapper">
+    <insert id="insertSelective" parameterType="com.svw.usp.model.expand.TuSmsSend">
+        insert into tu_sms_send_${suffix}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="smsMsgId != null">
+                SMS_MSG_ID,
+            </if>
+            <if test="smsMobileList != null">
+                SMS_MOBILE_LIST,
+            </if>
+            <if test="smsContent != null">
+                SMS_CONTENT,
+            </if>
+            <if test="smsSendMan != null">
+                SMS_SEND_MAN,
+            </if>
+            <if test="smsReceiveTime != null">
+                SMS_RECEIVE_TIME,
+            </if>
+            <if test="smsStatus != null">
+                SMS_STATUS,
+            </if>
+            <if test="smsRetryCount != null">
+                SMS_RETRY_COUNT,
+            </if>
+            <if test="smsPriority != null">
+                SMS_PRIORITY,
+            </if>
+            <if test="smsSendTime != null">
+                SMS_SEND_TIME,
+            </if>
+            <if test="smsBillingTime != null">
+                SMS_BILLING_TIME,
+            </if>
+            <if test="smsArchiveTime != null">
+                SMS_ARCHIVE_TIME,
+            </if>
+            <if test="smsResponseTime != null">
+                SMS_RESPONSE_TIME,
+            </if>
+            <if test="smsResponseStatus != null">
+                SMS_RESPONSE_STATUS,
+            </if>
+            <if test="smsMobileBillingUnit != null">
+                SMS_MOBILE_BILLING_UNIT,
+            </if>
+            <if test="smsContentBillingUnit != null">
+                SMS_CONTENT_BILLING_UNIT,
+            </if>
+            <if test="smsPlanTime != null">
+                SMS_PLAN_TIME,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY,
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="smsMsgId != null">
+                #{smsMsgId,jdbcType=VARCHAR},
+            </if>
+            <if test="smsMobileList != null">
+                #{smsMobileList,jdbcType=VARCHAR},
+            </if>
+            <if test="smsContent != null">
+                #{smsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="smsSendMan != null">
+                #{smsSendMan,jdbcType=VARCHAR},
+            </if>
+            <if test="smsReceiveTime != null">
+                #{smsReceiveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsStatus != null">
+                #{smsStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="smsRetryCount != null">
+                #{smsRetryCount,jdbcType=VARCHAR},
+            </if>
+            <if test="smsPriority != null">
+                #{smsPriority,jdbcType=VARCHAR},
+            </if>
+            <if test="smsSendTime != null">
+                #{smsSendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsBillingTime != null">
+                #{smsBillingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsArchiveTime != null">
+                #{smsArchiveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsResponseTime != null">
+                #{smsResponseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsResponseStatus != null">
+                #{smsResponseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="smsMobileBillingUnit != null">
+                #{smsMobileBillingUnit,jdbcType=DECIMAL},
+            </if>
+            <if test="smsContentBillingUnit != null">
+                #{smsContentBillingUnit,jdbcType=DECIMAL},
+            </if>
+            <if test="smsPlanTime != null">
+                #{smsPlanTime,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>
