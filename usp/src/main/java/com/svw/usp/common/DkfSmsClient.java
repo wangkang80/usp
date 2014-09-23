@@ -33,10 +33,51 @@ public class DkfSmsClient {
 
     /**
      * <p>
-     * Field SERVICE_ENDPOINT: webservice地址
+     * Field service: 服务
      * </p>
      */
-    private static final String SERVICE_ENDPOINT = "http://61.129.70.81:8689/GeneralWs/services/DkfServices?wsdl";
+    private Service service;
+
+    /**
+     * <p>
+     * Field call: 创建call
+     * </p>
+     */
+    private Call call;
+
+    /**
+     * <p>
+     * Field url: 地址
+     * </p>
+     */
+    private String url;
+
+    /**
+     * <p>
+     * Description: 构造函数
+     * </p>
+     * 
+     * @param url 地址
+     */
+    public DkfSmsClient(String url) {
+        this.service = new Service();
+        this.url = url;
+    }
+
+    /**
+     * <p>
+     * Description: 创建call
+     * </p>
+     * 
+     * @param qName 方法名称
+     * @throws ServiceException 服务异常
+     * @throws MalformedURLException 解析url异常
+     */
+    public void createCall(String qName) throws ServiceException, MalformedURLException {
+        this.call = (Call) this.service.createCall();
+        this.call.setTargetEndpointAddress(new java.net.URL(url));
+        this.call.setOperationName(new QName(qName));
+    }
 
     /**
      * <p>
@@ -50,23 +91,15 @@ public class DkfSmsClient {
      * @param planTime 计划时间
      * @param filename 文件名
      * @return 状态
-     * @throws ServiceException 创建服务异常
-     * @throws MalformedURLException 解析url异常
      * @throws RemoteException 远程调用异常
      */
     public String sendSms(String user, String password, String[] mobiles, String content, String planTime,
-            String filename) throws ServiceException, MalformedURLException, RemoteException {
+            String filename) throws RemoteException {
 
-        Service service = null;
-        service = new Service();
-
-        Call call = null;
-        call = (Call) service.createCall();
-        call.setTargetEndpointAddress(new java.net.URL(SERVICE_ENDPOINT));
-        call.setOperationName(new QName("SendSMS"));
-
+        //调用
         String result = null;
-        result = (String.valueOf((call.invoke(new Object[] { user, password, mobiles, content, planTime, filename }))));
+        result = (String.valueOf((this.call
+                .invoke(new Object[] { user, password, mobiles, content, planTime, filename }))));
 
         return result;
     }
@@ -79,20 +112,9 @@ public class DkfSmsClient {
      * @param user 用户名
      * @param password 密码
      * @return 结果
-     * @throws ServiceException 创建服务异常
-     * @throws MalformedURLException 解析url异常
      * @throws RemoteException 远程调用异常
      */
-    public String getUserSmsCount(String user, String password) throws ServiceException, MalformedURLException,
-            RemoteException {
-
-        Service service = null;
-        service = new Service();
-
-        Call call = null;
-        call = (Call) service.createCall();
-        call.setTargetEndpointAddress(new java.net.URL(SERVICE_ENDPOINT));
-        call.setOperationName(new QName("getUserSmsCount"));
+    public String getUserSmsCount(String user, String password) throws RemoteException {
 
         String result = null;
         result = (String.valueOf((call.invoke(new Object[] { user, password }))));
@@ -100,39 +122,21 @@ public class DkfSmsClient {
         return result;
     }
 
-    //    public static void main(String[] arge) {
-    //        Map<Long, Long> count = new HashMap<Long, Long>();
-    //        count.put(0l, 0l);
-    //        count.put(1l, 0l);
-    //        count.put(2l, 0l);
-    //        count.put(3l, 0l);
-    //        count.put(4l, 0l);
-    //        count.put(5l, 0l);
-    //        count.put(6l, 0l);
-    //        count.put(7l, 0l);
-    //        count.put(8l, 0l);
-    //        count.put(9l, 0l);
-    //        for (int i = 0; i <= 1000000; i++) {
-    //            long a = System.currentTimeMillis() % 2;
-    //            count.put(a, count.get(a) + 1);
+    //    public static void main(String[] args) throws Exception {
+    //        String mobile;
+    //        try {
+    //            mobile = DesTools.encrypt("15221143497", "C9eLew123456");
+    //            String user = DesTools.encrypt("12801", "C9eLew123456");
+    //            String password = DesTools.encrypt("2W2i6o", "C9eLew123456");
+    //            String content = DesTools.encrypt("测试短信1", "C9eLew123456");
+    //            System.out.println(user + "," + password);
+    //            //String mobiles[] = new String[] { mobile };
+    //            //DkfSmsClient clientDemo = new DkfSmsClient();
+    //            //String result = clientDemo.sendSms(user, password, mobiles, content, "", "");
+    //            //String result = clientDemo.getUserSmsCount(user, password);
+    //            //System.out.println("result=" + result);
+    //        } catch (Exception e) {
+    //            e.printStackTrace();
     //        }
-    //        System1.out.println(count);
     //    }
-
-    public static void main(String[] args) throws Exception {
-        String mobile;
-        try {
-            mobile = DesTools.encrypt("15221143497", "C9eLew123456");
-            String user = DesTools.encrypt("12801", "C9eLew123456");
-            String password = DesTools.encrypt("2W2i6o", "C9eLew123456");
-            String content = DesTools.encrypt("测试短信1", "C9eLew123456");
-            String mobiles[] = new String[] { mobile };
-            DkfSmsClient clientDemo = new DkfSmsClient();
-            String result = clientDemo.sendSms(user, password, mobiles, content, "", "");
-            //String result = clientDemo.getUserSmsCount(user, password);
-            System.out.println("result=" + result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

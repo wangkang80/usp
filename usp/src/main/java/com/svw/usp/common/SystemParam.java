@@ -53,5 +53,25 @@ public enum SystemParam {
      * Field SMS_BILLING_TABLE_COUNT: 计费表的个数
      * </p>
      */
-    SMS_BILLING_TABLE_COUNT
+    SMS_BILLING_TABLE_COUNT, /**
+     * <p>
+     * Field DKF_WEBSERVICE_URL: 电科发服务地址
+     * </p>
+     */
+    DKF_WEBSERVICE_URL, /**
+     * <p>
+     * Field DKF_WEBSERVICE_USERNAME: 电科发服务用户名
+     * </p>
+     */
+    DKF_WEBSERVICE_USERNAME, /**
+     * <p>
+     * Field DKF_WEBSERVICE_PASSWORD: 电科发服务密码
+     * </p>
+     */
+    DKF_WEBSERVICE_PASSWORD, /**
+     * <p>
+     * Field DKF_WEBSERVICE_SECRET_KEY: 电科发服务秘钥
+     * </p>
+     */
+    DKF_WEBSERVICE_SECRET_KEY
 }
