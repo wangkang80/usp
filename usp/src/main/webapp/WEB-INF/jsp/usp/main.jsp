@@ -6,4 +6,5 @@
 	<a id="userInfoTable_search_refresh" href="#" data-options="plain:true" class="easyui-linkbutton">刷新</a>
 </div>
 <table id="userInfoTable"></table>
+<div id="displaySecretKey_window"></div>
 <form style="display: none;" id="user_info_form_activate" name="user_info_form_activate" method="post"></form>

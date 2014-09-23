@@ -41,11 +41,20 @@ $(function() {
 	// 初始化[激活用户]按钮
 	function initActivateBtn(data) {
 		$("#userInfoTable_search_activate").unbind("click");
+		$("#userInfoTable_search_displaySecretKey").unbind("click");
 		if (data.rows.length > 0) {
 			$('#userInfoTable_search_activate').linkbutton({
 				disabled : true
 			});
+			$('#userInfoTable_search_displaySecretKey').linkbutton({
+				disabled : false
+			});
+			$('#userInfoTable_search_displaySecretKey').click(displaySecretKeyClick);
+
 		} else {
+			$('#userInfoTable_search_displaySecretKey').linkbutton({
+				disabled : true
+			});
 			$('#userInfoTable_search_activate').linkbutton({
 				disabled : false
 			});
@@ -54,9 +63,19 @@ $(function() {
 	}
 
 	// 查看秘钥
-	$('#userInfoTable_search_displaySecretKey').click(function() {
-		alert('a');
-	});
+	function displaySecretKeyClick() {
+		$('#displaySecretKey_window').window({
+			title : '查看秘钥',
+			collapsible : false,
+			minimizable : false,
+			maximizable : false,
+			resizable : false,
+			modal : true,
+			width : 250,
+			height : 120,
+			href : basePath + 'uspMainController/toChangeSecretKey'
+		});
+	}
 
 	// 激活按钮click事件
 	function activateClick() {

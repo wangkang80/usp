@@ -46,6 +46,41 @@ public class MainPageService extends BaseService {
 
     /**
      * <p>
+     * Description: 修改接口秘钥
+     * </p>
+     * 
+     * @param userName 用户名
+     * @param secretKey 秘钥
+     * @return 操作结果
+     */
+    public JsonResult<String> editSecretKey(String userName, String secretKey) {
+        TuUser tu = this.loadTuUser(userName);
+        if (tu == null) {
+            return new JsonResult<String>(Constants.FAIL, "用户不存在");
+        }
+        tu = new TuUser();
+        tu.setUserName(userName);
+        tu.setInterfaceSecretKey(secretKey);
+        tu.setUpdateBy(userName);
+        tu.setUpdateDate(new Date());
+        this.tum.updateByPrimaryKeySelective(tu);
+        return new JsonResult<String>(Constants.SUCCESS, "保存成功");
+    }
+
+    /**
+     * <p>
+     * Description: 加载用户扩展信息
+     * </p>
+     * 
+     * @param loginUser 用户名
+     * @return 扩展信息
+     */
+    public TuUser loadTuUser(String loginUser) {
+        return this.tum.selectByPrimaryKey(loginUser);
+    }
+
+    /**
+     * <p>
      * Description: 激活账户
      * </p>
      * 

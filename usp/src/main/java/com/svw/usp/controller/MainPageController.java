@@ -41,6 +41,48 @@ public class MainPageController extends BaseController {
 
     /**
      * <p>
+     * Description: 修改接口秘钥
+     * </p>
+     * 
+     * @param userName 用户名
+     * @param secretKey 秘钥
+     * @return 操作结果
+     */
+    @RequestMapping("editSecretKey")
+    @ResponseBody
+    public JsonResult<String> editSecretKey(@CurrentUser String loginName, String secretKey) {
+        return this.mps.editSecretKey(loginName, secretKey);
+    }
+
+    /**
+     * <p>
+     * Description: 加载用户扩展信息
+     * </p>
+     * 
+     * @param loginUser 用户名
+     * @return 扩展信息
+     */
+    @RequestMapping("toChangeSecretKey")
+    public String toChangeSecretKey() {
+        return "/usp/changeSecretKey";
+    }
+
+    /**
+     * <p>
+     * Description: 加载用户扩展信息
+     * </p>
+     * 
+     * @param loginUser 用户名
+     * @return 扩展信息
+     */
+    @RequestMapping("loadTuUser")
+    @ResponseBody
+    public TuUser loadTuUser(@CurrentUser String loginName) {
+        return this.mps.loadTuUser(loginName);
+    }
+
+    /**
+     * <p>
      * Description: 激活账户
      * </p>
      * 
