@@ -26,7 +26,6 @@ import com.llsfw.core.controller.base.BaseController;
 import com.svw.usp.common.DesTools;
 import com.svw.usp.model.expand.RequestSendSmsVo;
 import com.svw.usp.model.expand.ResponseSendSmsVo;
-import com.svw.usp.model.standard.TuUser;
 import com.svw.usp.service.MainPageService;
 import com.svw.usp.service.openapi.sms.SmsServices;
 
@@ -85,11 +84,10 @@ public class SmsController extends BaseController {
             //记录消息接受时间
             Date receiveDate = new Date();
 
-            //获得头信息中的用户名
-            String userName = httpServletRequest.getHeader(com.svw.usp.common.Constants.HTTP_REQUEST_HEADER_USERNAME);
-
-            //获得用户秘钥
-            TuUser user = this.mps.loadTuUser(userName);
+            //获得作用域中的用户名
+            String userName = httpServletRequest.getAttribute("userName").toString();
+            String secretKey = httpServletRequest.getAttribute("secretKey").toString();
+            String lastSmsCount = httpServletRequest.getAttribute("lastSmsCount").toString();
 
             //获得请求数据
             String requestData = null;
@@ -110,7 +108,7 @@ public class SmsController extends BaseController {
 
             //消息体解密
             try {
-                requestData = DesTools.decrypt(requestData, user.getInterfaceSecretKey());
+                requestData = DesTools.decrypt(requestData, secretKey);
             } catch (Throwable ex) {
                 responseSendSmsVo = new ResponseSendSmsVo();
                 responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_10);
@@ -141,6 +139,7 @@ public class SmsController extends BaseController {
                 if (!rv) {
                     responseSendSmsVo = new ResponseSendSmsVo();
                     responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_12);
+                    this.log.info(m + "电话号码有误");
                     throw new Exception("包含错误的手机号码");
                 }
             }
@@ -164,7 +163,7 @@ public class SmsController extends BaseController {
             }
 
             //判断是否有余额
-            if (!ss.checkSmsCount(userName)) {
+            if (Long.parseLong(lastSmsCount) <= 0l) {
                 responseSendSmsVo = new ResponseSendSmsVo();
                 responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_9);
                 throw new Exception("短信余额不足,请充值");

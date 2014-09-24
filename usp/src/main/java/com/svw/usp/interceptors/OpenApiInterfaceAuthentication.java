@@ -112,6 +112,11 @@ public class OpenApiInterfaceAuthentication implements HandlerInterceptor {
                 throw new Exception("用户名或者密码错误");
             }
 
+            //存储相关值
+            httpServletRequest.setAttribute("userName", userName);
+            httpServletRequest.setAttribute("secretKey", user.getInterfaceSecretKey());
+            httpServletRequest.setAttribute("lastSmsCount", user.getLastSmsCount());
+
             //校验通过
             rv = true;
         } catch (Throwable e) {

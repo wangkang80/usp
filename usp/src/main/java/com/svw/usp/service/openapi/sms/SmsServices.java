@@ -23,7 +23,6 @@ import com.svw.usp.mapper.standard.TuUserMapper;
 import com.svw.usp.model.expand.RequestSendSmsVo;
 import com.svw.usp.model.expand.ResponseSendSmsVo;
 import com.svw.usp.model.expand.TuSmsSend;
-import com.svw.usp.model.standard.TuUser;
 
 /**
  * <p>
@@ -203,22 +202,6 @@ public class SmsServices extends BaseService {
 
         //返回
         return rv;
-    }
-
-    /**
-     * <p>
-     * Description: 验证用户是否有足够的余额
-     * </p>
-     * 
-     * @param userName 用户名
-     * @return 结果
-     */
-    public boolean checkSmsCount(String userName) {
-        TuUser user = this.tu.selectByPrimaryKey(userName);
-        if (user.getLastSmsCount().longValue() <= 0) {
-            return false;
-        }
-        return true;
     }
 
 }
