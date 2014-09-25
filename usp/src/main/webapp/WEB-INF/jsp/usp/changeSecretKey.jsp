@@ -3,6 +3,12 @@
 <form id="interface_SecretKey_form_edit" name="interface_SecretKey_form_edit" method="post">
 	<table>
 		<tr>
+			<td>接口密码:</td>
+			<td colspan="3">
+				<input id="interface_pswd_edit" name="interfacePswd" style="width: 150px;" />
+			</td>
+		</tr>
+		<tr>
 			<td>接口秘钥:</td>
 			<td colspan="3">
 				<input id="interface_SecretKey_edit" name="secretKey" style="width: 150px;" />

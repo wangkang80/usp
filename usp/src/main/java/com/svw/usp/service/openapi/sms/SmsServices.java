@@ -96,6 +96,7 @@ public class SmsServices extends BaseService {
             //tss.setSmsSendTime(smsSendTime); //发送时间
             //tss.setSmsResponseStatus(smsResponseStatus); //响应状态
             //tss.setSmsResponseTime(smsResponseTime); //响应时间
+            //tss.setSmsResponseMsgId(responseMsgId); //响应消息ID
             //tss.setSmsRetryCount(smsRetryCount); //重试次数
             //tss.setSmsArchiveTime(smsArchiveTime); //归档时间
             //tss.setSmsBillingTime(smsBillingTime); //结算时间

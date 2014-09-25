@@ -24,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.llsfw.core.service.user.UserService;
 import com.svw.usp.common.Constants;
-import com.svw.usp.common.DesTools;
 import com.svw.usp.mapper.standard.TuUserMapper;
 import com.svw.usp.model.expand.ResponseVo;
 import com.svw.usp.model.standard.TuUser;
@@ -99,14 +98,8 @@ public class OpenApiInterfaceAuthentication implements HandlerInterceptor {
                 throw new Exception("用户不存在或者未激活");
             }
 
-            //解密密码
-            password = DesTools.decrypt(password, user.getInterfaceSecretKey());
-
-            //进行md5密码比对
-            boolean result = this.us.pswdCheck(userName, password);
-
-            //判断密码是否正确
-            if (!result) {
+            ////进行md5密码比对
+            if (!user.getInterfacePassword().equals(password)) {
                 responseVo = new ResponseVo();
                 responseVo.setResponseStatus(Constants.SEND_SMS_STATUS_3);
                 throw new Exception("用户名或者密码错误");

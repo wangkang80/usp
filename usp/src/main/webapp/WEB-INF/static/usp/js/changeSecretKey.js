@@ -5,16 +5,22 @@ $(function() {
 	$('#interface_SecretKey_form_edit').form({
 		onLoadSuccess : function(data) { // 加载完毕后在格式化表单
 			// 加载数据
+			$('#interface_pswd_edit').val(data.interfacePassword);
 			$('#interface_SecretKey_edit').val(data.interfaceSecretKey);
 
 			// 格式化表单------------------------------------
 
-			// 功能名称
+			// 接口密码
+			$('#interface_pswd_edit').validatebox({
+				required : true,
+				validType : [ "length[8,17]", "not_chinese" ]
+			});
+
+			// 接口秘钥
 			$('#interface_SecretKey_edit').validatebox({
 				required : true,
 				validType : [ "length[8,17]", "not_chinese" ]
 			});
-			$('#interface_SecretKey_edit').select();
 
 			// 保存按钮
 			$('#interface_SecretKey_edit_btn').linkbutton({});

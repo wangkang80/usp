@@ -26,6 +26,9 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 
                 <!-- 是否真实发送,0:假发送,1:真发送 -->
                 <entry key="SEND_REAL" value="${USP.SEND_REAL}" />
+                <!-- 假发送,线程休眠的时间(毫秒) -->
+                <entry key="SEND_REAL_SLEEP_TIME" value="${USP.SEND_REAL_SLEEP_TIME}" />
+
 
                 <!-- 单条消息最大长度(计费单位=1),超过此长度,则为长短信(计费单位>1) -->
                 <entry key="SINGLE_SMS_CONTENT_LENGTH" value="${USP.SINGLE_SMS_CONTENT_LENGTH}" />
@@ -40,6 +43,13 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <entry key="SMS_SEND_TABLE_COUNT" value="${USP.SMS_SEND_TABLE_COUNT}" />
                 <!-- 计费表的个数 -->
                 <entry key="SMS_BILLING_TABLE_COUNT" value="${USP.SMS_BILLING_TABLE_COUNT}" />
+
+                <!-- 单次发送消息的条数 -->
+                <entry key="SEND_SMS_MAX_EXEC_COUNT" value="${USP.SEND_SMS_MAX_EXEC_COUNT}" />
+                <!-- 单次单用户结算消息的条数 -->
+                <entry key="SEND_SMS_MAX_BILLING_COUNT" value="${USP.SEND_SMS_MAX_BILLING_COUNT}" />
+
+
 
                 <!--电科发服务地址 -->
                 <entry key="DKF_WEBSERVICE_URL" value="${USP.DKF_WEBSERVICE_URL}" />

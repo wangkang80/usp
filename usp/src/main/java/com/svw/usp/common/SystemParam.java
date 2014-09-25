@@ -73,5 +73,20 @@ public enum SystemParam {
      * Field DKF_WEBSERVICE_SECRET_KEY: 电科发服务秘钥
      * </p>
      */
-    DKF_WEBSERVICE_SECRET_KEY
+    DKF_WEBSERVICE_SECRET_KEY, /**
+     * <p>
+     * Field SEND_SMS_MAX_EXEC_COUNT: 单次发送消息的条数
+     * </p>
+     */
+    SEND_SMS_MAX_EXEC_COUNT, /**
+     * <p>
+     * Field SEND_REAL_SLEEP_TIME: 假发送,线程休眠的时间(毫秒)
+     * </p>
+     */
+    SEND_REAL_SLEEP_TIME, /**
+     * <p>
+     * Field SEND_SMS_MAX_BILLING_COUNT: 单次单用户结算消息的条数
+     * </p>
+     */
+    SEND_SMS_MAX_BILLING_COUNT
 }

@@ -11,6 +11,14 @@ $(function() {
 		singleSelect : true,
 		toolbar : '#userInfoTable_search',
 		columns : [ [ {
+			title : '接口密码',
+			field : 'interfacePassword',
+			align : 'left',
+			width : 100,
+			formatter : function(value, row, index) {
+				return "●●●●●●●●●●";
+			}
+		}, {
 			title : '接口秘钥',
 			field : 'interfaceSecretKey',
 			align : 'left',
@@ -72,7 +80,7 @@ $(function() {
 			resizable : false,
 			modal : true,
 			width : 250,
-			height : 120,
+			height : 150,
 			href : basePath + 'uspMainController/toChangeSecretKey'
 		});
 	}

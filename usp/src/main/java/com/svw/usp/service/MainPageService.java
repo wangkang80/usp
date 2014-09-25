@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.llsfw.core.common.Constants;
 import com.llsfw.core.common.JsonResult;
 import com.llsfw.core.service.BaseService;
+import com.svw.usp.common.DesTools;
 import com.svw.usp.mapper.standard.TuUserMapper;
 import com.svw.usp.model.standard.TuUser;
 import com.svw.usp.model.standard.TuUserCriteria;
@@ -50,17 +51,27 @@ public class MainPageService extends BaseService {
      * </p>
      * 
      * @param userName 用户名
+     * @param interfacePswd 密码
      * @param secretKey 秘钥
      * @return 操作结果
+     * @throws Exception 异常
      */
-    public JsonResult<String> editSecretKey(String userName, String secretKey) {
+    public JsonResult<String> editSecretKey(String userName, String interfacePswd, String secretKey) throws Exception {
+
+        //判断用户是否存在
         TuUser tu = this.loadTuUser(userName);
         if (tu == null) {
             return new JsonResult<String>(Constants.FAIL, "用户不存在");
         }
+
+        //密码加密
+        interfacePswd = DesTools.encrypt(interfacePswd, secretKey);
+
+        //保存
         tu = new TuUser();
         tu.setUserName(userName);
         tu.setInterfaceSecretKey(secretKey);
+        tu.setInterfacePassword(interfacePswd);
         tu.setUpdateBy(userName);
         tu.setUpdateDate(new Date());
         this.tum.updateByPrimaryKeySelective(tu);

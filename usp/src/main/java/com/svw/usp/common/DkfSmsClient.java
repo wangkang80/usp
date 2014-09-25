@@ -123,14 +123,30 @@ public class DkfSmsClient {
     }
 
     //    public static void main(String[] args) throws Exception {
-    //        String mobile;
     //        try {
-    //            mobile = DesTools.encrypt("15221143497", "C9eLew123456");
     //            String user = DesTools.encrypt("12801", "C9eLew123456");
     //            String password = DesTools.encrypt("2W2i6o", "C9eLew123456");
-    //            String content = DesTools.encrypt("测试短信1", "C9eLew123456");
     //            System.out.println(user + "," + password);
-    //            //String mobiles[] = new String[] { mobile };
+    //
+    //            String mobile = null;
+    //            String content = null;
+    //            String mobiles[] = null;
+    //
+    //            DkfSmsClient c = new DkfSmsClient("http://61.129.70.81:8689/GeneralWs/services/DkfServices?wsdl");
+    //            c.createCall("SendSMS");
+    //
+    //            mobile = DesTools.encrypt("15221143497", "C9eLew123456");
+    //            content = DesTools.encrypt("测试短信2", "C9eLew123456");
+    //            mobiles = new String[] { mobile };
+    //            String result = c.sendSms(user, password, mobiles, content, "", "");
+    //            System.out.println("result=" + result);
+    //
+    //            mobile = DesTools.encrypt("18621585813", "C9eLew123456");
+    //            content = DesTools.encrypt("测试短信2", "C9eLew123456");
+    //            mobiles = new String[] { mobile };
+    //            result = c.sendSms(user, password, mobiles, content, "", "");
+    //            System.out.println("result=" + result);
+    //
     //            //DkfSmsClient clientDemo = new DkfSmsClient();
     //            //String result = clientDemo.sendSms(user, password, mobiles, content, "", "");
     //            //String result = clientDemo.getUserSmsCount(user, password);

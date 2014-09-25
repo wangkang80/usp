@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.llsfw.core.common.JsonResult;
 import com.llsfw.core.controller.base.BaseController;
 import com.llsfw.core.security.annotation.CurrentUser;
+import com.svw.usp.common.DesTools;
 import com.svw.usp.model.standard.TuUser;
 import com.svw.usp.service.MainPageService;
 
@@ -45,13 +46,16 @@ public class MainPageController extends BaseController {
      * </p>
      * 
      * @param userName 用户名
+     * @param interfacePswd 密码
      * @param secretKey 秘钥
      * @return 操作结果
+     * @throws Exception 异常
      */
     @RequestMapping("editSecretKey")
     @ResponseBody
-    public JsonResult<String> editSecretKey(@CurrentUser String loginName, String secretKey) {
-        return this.mps.editSecretKey(loginName, secretKey);
+    public JsonResult<String> editSecretKey(@CurrentUser String loginName, String interfacePswd, String secretKey)
+            throws Exception {
+        return this.mps.editSecretKey(loginName, interfacePswd, secretKey);
     }
 
     /**
@@ -74,11 +78,16 @@ public class MainPageController extends BaseController {
      * 
      * @param loginUser 用户名
      * @return 扩展信息
+     * @throws Exception
      */
     @RequestMapping("loadTuUser")
     @ResponseBody
-    public TuUser loadTuUser(@CurrentUser String loginName) {
-        return this.mps.loadTuUser(loginName);
+    public TuUser loadTuUser(@CurrentUser String loginName) throws Exception {
+        TuUser user = this.mps.loadTuUser(loginName);
+        if (user != null) {
+            user.setInterfacePassword(DesTools.decrypt(user.getInterfacePassword(), user.getInterfaceSecretKey()));
+        }
+        return user;
     }
 
     /**

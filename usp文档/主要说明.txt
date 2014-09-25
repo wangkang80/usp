@@ -1,0 +1,3 @@
+*.mySql数据库中[innodb_lock_wait_timeout]参数设置成[1](锁等待时间)
+*.JRE的版本为7,TOMCAT的版本为7
+*.连接池使用JDBC-POOL,需要在TOMCAT的LIB中加入数据库驱动程序

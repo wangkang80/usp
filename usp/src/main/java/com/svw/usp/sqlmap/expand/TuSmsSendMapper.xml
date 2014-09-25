@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.svw.usp.mapper.expand.TuSmsSendMapper">
+    <select id="countSendDataStatus0" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ${tableName} WHERE SMS_STATUS=0
+    </select>
+    <update id="updateSendSmsData">
+        UPDATE ${tableName}
+        <set>
+            <if test="smsStatus != null">
+                SMS_STATUS=#{smsStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="smsRetryCount != null">
+                SMS_RETRY_COUNT=#{smsRetryCount,jdbcType=VARCHAR},
+            </if>
+            <if test="smsSendTime != null">
+                SMS_SEND_TIME=#{smsSendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsResponseTime != null">
+                SMS_RESPONSE_TIME=#{smsResponseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="smsResponseStatus != null">
+                SMS_RESPONSE_STATUS=#{smsResponseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="smsResponseId != null">
+                SMS_RESPONSE_MSG_ID=#{smsResponseId,jdbcType=VARCHAR},
+            </if>
+            UPDATE_BY=#{updateBy,jdbcType=VARCHAR},
+            UPDATE_DATE=#{updateDate,jdbcType=TIMESTAMP}
+        </set>
+        WHERE SMS_MSG_ID = #{msgId,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteSendSmsData">
+        DELETE FROM ${tableName} WHERE SMS_MSG_ID=#{msgId}
+    </delete>
+    <select id="loadSendSmsData" resultType="java.util.HashMap">
+        SELECT
+        SMS_MSG_ID,
+        SMS_MOBILE_LIST,
+        SMS_CONTENT,
+        SMS_SEND_MAN,
+        SMS_RECEIVE_TIME,
+        SMS_STATUS,
+        SMS_RETRY_COUNT,
+        SMS_PRIORITY,
+        SMS_SEND_TIME,
+        SMS_BILLING_TIME,
+        SMS_ARCHIVE_TIME,
+        SMS_RESPONSE_TIME,
+        SMS_RESPONSE_STATUS,
+        SMS_RESPONSE_MSG_ID,
+        SMS_MOBILE_BILLING_UNIT,
+        SMS_CONTENT_BILLING_UNIT,
+        SMS_PLAN_TIME,
+        CREATE_BY,
+        CREATE_DATE,
+        UPDATE_BY,
+        UPDATE_DATE
+        FROM
+        ${tableName}
+        ORDER BY
+        SMS_RECEIVE_TIME,SMS_PRIORITY,SMS_RETRY_COUNT ASC LIMIT ${loadCount}
+    </select>
     <insert id="insertSelective" parameterType="com.svw.usp.model.expand.TuSmsSend">
         insert into tu_sms_send_${suffix}
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -42,6 +102,9 @@
             </if>
             <if test="smsResponseStatus != null">
                 SMS_RESPONSE_STATUS,
+            </if>
+            <if test="smsResponseMsgId != null">
+                SMS_RESPONSE_MSG_ID,
             </if>
             <if test="smsMobileBillingUnit != null">
                 SMS_MOBILE_BILLING_UNIT,
@@ -104,6 +167,9 @@
             </if>
             <if test="smsResponseStatus != null">
                 #{smsResponseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="smsResponseMsgId != null">
+                #{smsResponseMsgId,jdbcType=VARCHAR},
             </if>
             <if test="smsMobileBillingUnit != null">
                 #{smsMobileBillingUnit,jdbcType=DECIMAL},

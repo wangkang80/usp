@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.svw.usp.mapper.expand.TuSmsBillingMapper">
+    <update id="updateBillingSmsData">
+        UPDATE ${tableName}
+        <set>
+            SMS_RETRY_COUNT=#{smsRetryCount,jdbcType=VARCHAR},
+            UPDATE_BY=#{updateBy,jdbcType=VARCHAR},
+            UPDATE_DATE=#{updateDate,jdbcType=TIMESTAMP}
+        </set>
+        WHERE SMS_MSG_ID = #{msgId,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteBillingSmsData">
+        DELETE FROM ${tableName} WHERE SMS_MSG_ID=#{msgId}
+    </delete>
+    <select id="loadBillingSmsData" resultType="java.util.HashMap">
+        SELECT
+        SMS_MSG_ID,
+        SMS_MOBILE_LIST,
+        SMS_CONTENT,
+        SMS_SEND_MAN,
+        SMS_RECEIVE_TIME,
+        SMS_STATUS,
+        SMS_RETRY_COUNT,
+        SMS_PRIORITY,
+        SMS_SEND_TIME,
+        SMS_BILLING_TIME,
+        SMS_ARCHIVE_TIME,
+        SMS_RESPONSE_TIME,
+        SMS_RESPONSE_STATUS,
+        SMS_RESPONSE_MSG_ID,
+        SMS_MOBILE_BILLING_UNIT,
+        SMS_CONTENT_BILLING_UNIT,
+        SMS_PLAN_TIME,
+        CREATE_BY,
+        CREATE_DATE,
+        UPDATE_BY,
+        UPDATE_DATE
+        FROM
+        ${tableName}
+        WHERE SMS_SEND_MAN=#{userName}
+        ORDER BY SMS_RECEIVE_TIME,SMS_PRIORITY,SMS_RETRY_COUNT ASC
+        LIMIT ${loadCount}
+    </select>
+    <select id="lockUserLastSmsCountAndReturn" resultType="java.lang.Integer">
+        SELECT LAST_SMS_COUNT FROM TU_USER WHERE USER_NAME=#{userName} FOR UPDATE
+    </select>
+    <select id="loadBillingUserList" resultType="java.lang.String">
+        SELECT SMS_SEND_MAN FROM ${tableName} GROUP BY SMS_SEND_MAN
+    </select>
     <insert id="insertSelective" parameterType="com.svw.usp.model.expand.TuSmsBilling">
         insert into tu_sms_billing_${suffix}
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -42,6 +89,9 @@
             </if>
             <if test="smsResponseStatus != null">
                 SMS_RESPONSE_STATUS,
+            </if>
+            <if test="smsResponseMsgId != null">
+                SMS_RESPONSE_MSG_ID,
             </if>
             <if test="smsMobileBillingUnit != null">
                 SMS_MOBILE_BILLING_UNIT,
@@ -104,6 +154,9 @@
             </if>
             <if test="smsResponseStatus != null">
                 #{smsResponseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="smsResponseMsgId != null">
+                #{smsResponseMsgId,jdbcType=VARCHAR},
             </if>
             <if test="smsMobileBillingUnit != null">
                 #{smsMobileBillingUnit,jdbcType=DECIMAL},

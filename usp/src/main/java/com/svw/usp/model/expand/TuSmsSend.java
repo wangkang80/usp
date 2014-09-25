@@ -7,6 +7,13 @@ public class TuSmsSend implements Serializable {
 
     /**
      * <p>
+     * Field smsResponseMsgId: 响应消息ID
+     * </p>
+     */
+    private String smsResponseMsgId;
+
+    /**
+     * <p>
      * Field suffix: 分表标志
      * </p>
      */
@@ -668,6 +675,14 @@ public class TuSmsSend implements Serializable {
 
     public void setSuffix(String suffix) {
         this.suffix = suffix;
+    }
+
+    public String getSmsResponseMsgId() {
+        return smsResponseMsgId;
+    }
+
+    public void setSmsResponseMsgId(String smsResponseMsgId) {
+        this.smsResponseMsgId = smsResponseMsgId;
     }
 
 }
