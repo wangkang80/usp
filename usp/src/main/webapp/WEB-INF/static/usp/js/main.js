@@ -50,17 +50,24 @@ $(function() {
 	function initActivateBtn(data) {
 		$("#userInfoTable_search_activate").unbind("click");
 		$("#userInfoTable_search_displaySecretKey").unbind("click");
+		$("#userInfoTable_search_recharge").unbind("click");
 		if (data.rows.length > 0) {
 			$('#userInfoTable_search_activate').linkbutton({
 				disabled : true
+			});
+			$('#userInfoTable_search_recharge').linkbutton({
+				disabled : false
 			});
 			$('#userInfoTable_search_displaySecretKey').linkbutton({
 				disabled : false
 			});
 			$('#userInfoTable_search_displaySecretKey').click(displaySecretKeyClick);
-
+			$('#userInfoTable_search_recharge').click(rechargeClick);
 		} else {
 			$('#userInfoTable_search_displaySecretKey').linkbutton({
+				disabled : true
+			});
+			$('#userInfoTable_search_recharge').linkbutton({
 				disabled : true
 			});
 			$('#userInfoTable_search_activate').linkbutton({
@@ -68,6 +75,11 @@ $(function() {
 			});
 			$('#userInfoTable_search_activate').click(activateClick);
 		}
+	}
+
+	// 充值
+	function rechargeClick() {
+		alert('a');
 	}
 
 	// 查看秘钥

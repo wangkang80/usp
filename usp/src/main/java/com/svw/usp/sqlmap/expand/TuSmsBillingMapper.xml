@@ -39,7 +39,7 @@
         FROM
         ${tableName}
         WHERE SMS_SEND_MAN=#{userName}
-        ORDER BY SMS_RECEIVE_TIME,SMS_PRIORITY,SMS_RETRY_COUNT ASC
+        ORDER BY SMS_RETRY_COUNT,SMS_PRIORITY,SMS_RECEIVE_TIME ASC
         LIMIT ${loadCount}
     </select>
     <select id="lockUserLastSmsCountAndReturn" resultType="java.lang.Integer">

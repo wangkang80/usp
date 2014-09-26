@@ -49,5 +49,7 @@
         <!-- 需要生成的表(整形数字使用NUMBER类型,浮点型数字使用FLOAT类型) -->
         <table tableName="TU_USER"></table>
         <table tableName="TU_SMS_ARCHIVE"></table>
+        <table tableName="TU_USER_RECHARGE"></table>
+        <table tableName="TU_COSTS_LADDER"></table>
     </context>
 </generatorConfiguration>

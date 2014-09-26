@@ -3,6 +3,7 @@
 <div id="userInfoTable_search">
 	<a id="userInfoTable_search_activate" href="#" data-options="plain:true" class="easyui-linkbutton">激活账户</a>
 	<a id="userInfoTable_search_displaySecretKey" href="#" data-options="plain:true" class="easyui-linkbutton">查看秘钥</a>
+	<a id="userInfoTable_search_recharge" href="#" data-options="plain:true" class="easyui-linkbutton">充值</a>
 	<a id="userInfoTable_search_refresh" href="#" data-options="plain:true" class="easyui-linkbutton">刷新</a>
 </div>
 <table id="userInfoTable"></table>
