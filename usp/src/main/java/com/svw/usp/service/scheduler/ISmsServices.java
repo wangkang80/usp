@@ -65,4 +65,11 @@ public interface ISmsServices {
      * @throws Exception 异常
      */
     public void fastTriggerBilling(JobKey key, String tableName) throws Exception;
+
+    /**
+     * <p>
+     * Description: 清理无用的用户扩展表信息
+     * </p>
+     */
+    public void clearTuUser();
 }

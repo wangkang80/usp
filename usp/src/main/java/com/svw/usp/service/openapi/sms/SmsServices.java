@@ -19,10 +19,14 @@ import com.llsfw.core.service.BaseService;
 import com.svw.usp.common.Constants;
 import com.svw.usp.common.SystemParam;
 import com.svw.usp.mapper.expand.TuSmsSendMapper;
+import com.svw.usp.mapper.standard.TuSmsArchiveMapper;
 import com.svw.usp.mapper.standard.TuUserMapper;
 import com.svw.usp.model.expand.RequestSendSmsVo;
 import com.svw.usp.model.expand.ResponseSendSmsVo;
+import com.svw.usp.model.expand.ResponseUserSmsCountVo;
+import com.svw.usp.model.expand.ResponseUserSmsDetailVo;
 import com.svw.usp.model.expand.TuSmsSend;
+import com.svw.usp.model.standard.TuUser;
 
 /**
  * <p>
@@ -51,6 +55,46 @@ public class SmsServices extends BaseService {
 
     @Autowired
     private TuSmsSendMapper tssm;
+
+    @Autowired
+    private TuSmsArchiveMapper tsam;
+
+    /**
+     * <p>
+     * Description: 返回短消息明细
+     * </p>
+     * 
+     * @param msgId 消息ID
+     * @return 短消息明细
+     */
+    public ResponseUserSmsDetailVo userSmsDetail(String msgId) {
+        ResponseUserSmsDetailVo rv = new ResponseUserSmsDetailVo();
+        rv.setResponseStatus(Constants.SEND_SMS_STATUS_0);
+        rv.setResponseTime(new Date());
+        rv.setSmsDetail(tsam.selectByPrimaryKey(msgId));
+        return rv;
+    }
+
+    /**
+     * <p>
+     * Description: 返回用户剩余短信数量
+     * </p>
+     * 
+     * @param loginName 用户名
+     * @return 响应对象
+     */
+    public ResponseUserSmsCountVo userSmsCount(String loginName) {
+        ResponseUserSmsCountVo rv = new ResponseUserSmsCountVo();
+        rv.setResponseStatus(Constants.SEND_SMS_STATUS_0);
+        rv.setResponseTime(new Date());
+        TuUser user = this.tu.selectByPrimaryKey(loginName);
+        if (user == null) {
+            rv.setLastSmsCount(0);
+        } else {
+            rv.setLastSmsCount(user.getLastSmsCount());
+        }
+        return rv;
+    }
 
     public ResponseSendSmsVo sendSms(Date receiveDate, String userName, RequestSendSmsVo requestSendSmsVo) {
 

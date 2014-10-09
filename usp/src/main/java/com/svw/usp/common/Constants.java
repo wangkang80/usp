@@ -72,7 +72,7 @@ public class Constants {
 
     /**
      * <p>
-     * Field SEND_SMS_STATUS_0: 发送成功
+     * Field SEND_SMS_STATUS_0: 操作成功
      * </p>
      */
     public static final String SEND_SMS_STATUS_0 = "0";

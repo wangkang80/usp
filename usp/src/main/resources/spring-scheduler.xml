@@ -11,7 +11,20 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
         <ref bean="clearScheduledLogTrigger" />
         <ref bean="clearScheduledTriggerLogTrigger" />
         <ref bean="clearAppLogTrigger" />
+        <ref bean="clearTuUserTrigger" />
     </util:list>
+
+    <!-- 清理计划任务日志(10分钟执行一次) -->
+    <bean id="clearTuUserTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="clearTuUserJobDetail" />
+        <property name="group" value="SystemAutoRun" />
+        <property name="cronExpression" value="0 0/10 * * * ? " />
+    </bean>
+    <bean id="clearTuUserJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.svw.usp.scheduler.ClearTuUser" />
+        <property name="group" value="system" />
+        <property name="durability" value="true" />
+    </bean>
 
     <!-- 清理计划任务日志(每天凌晨1点执行) -->
     <bean id="clearScheduledLogTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">

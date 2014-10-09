@@ -15,6 +15,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,8 @@ import com.llsfw.core.controller.base.BaseController;
 import com.svw.usp.common.DesTools;
 import com.svw.usp.model.expand.RequestSendSmsVo;
 import com.svw.usp.model.expand.ResponseSendSmsVo;
+import com.svw.usp.model.expand.ResponseUserSmsCountVo;
+import com.svw.usp.model.expand.ResponseUserSmsDetailVo;
 import com.svw.usp.service.MainPageService;
 import com.svw.usp.service.openapi.sms.SmsServices;
 
@@ -64,6 +67,36 @@ public class SmsController extends BaseController {
     private MainPageService mps;
 
     /**
+     * <p>
+     * Description: 返回短消息明细
+     * </p>
+     * 
+     * @param msgId 消息ID
+     * @return 短消息明细
+     */
+    @RequestMapping(value = "/userSmsDetail/{msgId}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseUserSmsDetailVo userSmsDetail(@PathVariable String msgId) {
+        return this.ss.userSmsDetail(msgId);
+    }
+
+    /**
+     * <p>
+     * Description: 返回用户剩余短信数量
+     * </p>
+     * 
+     * @param httpServletRequest 请求对象
+     * @return
+     */
+    @RequestMapping(value = "/userSmsCount", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseUserSmsCountVo userSmsCount(HttpServletRequest httpServletRequest) {
+        String userName = httpServletRequest.getAttribute("userName").toString();
+        return this.ss.userSmsCount(userName);
+    }
+
+    /**
+     * `
      * <p>
      * Description: 发送SMS短消息
      * </p>

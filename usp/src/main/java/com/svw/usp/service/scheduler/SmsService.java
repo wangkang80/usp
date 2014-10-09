@@ -362,4 +362,17 @@ public class SmsService extends BaseService implements ISmsServices {
             this.s.schedulerOp("triggerJob", key.getName(), key.getGroup(), null, null);
         }
     }
+
+    @Override
+    public void clearTuUser() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(" DELETE FROM TU_USER WHERE USER_NAME IN ( ");
+        sb.append("     SELECT USER_NAME FROM ( ");
+        sb.append("         SELECT A.USER_NAME FROM TU_USER A ");
+        sb.append("         LEFT JOIN TT_APPLICATION_USER B ON A.USER_NAME=B.LOGIN_NAME ");
+        sb.append("         WHERE B.LOGIN_NAME IS NULL ");
+        sb.append("     ) C ");
+        sb.append(" ) ");
+        this.getImqm().delete(sb.toString());
+    }
 }
