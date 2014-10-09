@@ -26,8 +26,8 @@
         </commentGenerator>
 
         <!-- 数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://llsfwadmin.mysql.rds.aliyuncs.com:3306/usp"
-            userId="usp" password="usp_admin" />
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/usp" userId="root"
+            password="qqqqqq" />
 
         <!-- 解决数字转换问题 -->
         <javaTypeResolver>
@@ -50,6 +50,6 @@
         <table tableName="TU_USER"></table>
         <table tableName="TU_SMS_ARCHIVE"></table>
         <table tableName="TU_USER_RECHARGE"></table>
-        <table tableName="TU_COSTS_LADDER"></table>
+        <table tableName="TU_USER_RECHARGE_ITEM"></table>
     </context>
 </generatorConfiguration>

@@ -88,5 +88,15 @@ public enum SystemParam {
      * Field SEND_SMS_MAX_BILLING_COUNT: 单次单用户结算消息的条数
      * </p>
      */
-    SEND_SMS_MAX_BILLING_COUNT
+    SEND_SMS_MAX_BILLING_COUNT, /**
+     * <p>
+     * Field SMS_PRICE: 短信单价
+     * </p>
+     */
+    SMS_PRICE, /**
+     * <p>
+     * Field BANK_TRANSFER_CERTIFICATE_PATH: 凭证文件存放地址
+     * </p>
+     */
+    BANK_TRANSFER_CERTIFICATE_PATH
 }

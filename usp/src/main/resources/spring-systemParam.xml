@@ -38,7 +38,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <!-- 号码列表最大长度,超出此长度,则拆分成多条消息 -->
                 <entry key="MAX_MOBILE_LIST" value="${USP.MAX_MOBILE_LIST}" />
 
-
                 <!-- 发送表的个数 -->
                 <entry key="SMS_SEND_TABLE_COUNT" value="${USP.SMS_SEND_TABLE_COUNT}" />
                 <!-- 计费表的个数 -->
@@ -49,8 +48,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <!-- 单次单用户结算消息的条数 -->
                 <entry key="SEND_SMS_MAX_BILLING_COUNT" value="${USP.SEND_SMS_MAX_BILLING_COUNT}" />
 
-
-
                 <!--电科发服务地址 -->
                 <entry key="DKF_WEBSERVICE_URL" value="${USP.DKF_WEBSERVICE_URL}" />
                 <!--电科发服务用户名 -->
@@ -60,6 +57,11 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <!--电科发服务秘钥 -->
                 <entry key="DKF_WEBSERVICE_SECRET_KEY" value="${USP.DKF_WEBSERVICE_SECRET_KEY}" />
 
+                <!-- 短信单价 -->
+                <entry key="SMS_PRICE" value="${USP.SMS_PRICE}" />
+
+                <!-- 凭证存放地址 -->
+                <entry key="BANK_TRANSFER_CERTIFICATE_PATH" value="${USP.BANK_TRANSFER_CERTIFICATE_PATH}" />
             </util:map>
         </property>
     </bean>
