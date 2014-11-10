@@ -194,30 +194,31 @@ public class SmsService extends BaseService implements ISmsServices {
     @Override
     public void sendSms(String tableName) throws Exception {
 
-        //获得必要参数
-        String dkfWebserviceUrl = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_URL.name());
-        String dkfWebserviceUserName = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_USERNAME.name());
-        String dkfWebservicePassword = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_PASSWORD.name());
-        String dkfWebserviceSecretKey = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_SECRET_KEY.name());
-        String sendSmsMaxExecCount = this.getPs().getServerParamter(SystemParam.SEND_SMS_MAX_EXEC_COUNT.name());
-        String sendReal = this.getPs().getServerParamter(SystemParam.SEND_REAL.name());
-        long sendRealSleepTime = Long
-                .parseLong(this.getPs().getServerParamter(SystemParam.SEND_REAL_SLEEP_TIME.name()));
-        long smsBillingTableCount = Long.parseLong(this.getPs().getServerParamter(
-                SystemParam.SMS_BILLING_TABLE_COUNT.name()));
-
-        //加密用户名和密码
-        dkfWebserviceUserName = DesTools.encrypt(dkfWebserviceUserName, dkfWebserviceSecretKey);
-        dkfWebservicePassword = DesTools.encrypt(dkfWebservicePassword, dkfWebserviceSecretKey);
-
-        //初始化短信发送服务
-        DkfSmsClient client = new DkfSmsClient(dkfWebserviceUrl);
-
         //抓取数据
+        String sendSmsMaxExecCount = this.getPs().getServerParamter(SystemParam.SEND_SMS_MAX_EXEC_COUNT.name());
         List<Map<String, Object>> smsList = this.tssm.loadSendSmsData(tableName, sendSmsMaxExecCount);
 
         //如果有数据,则做后续操作
         if (!CollectionUtils.isEmpty(smsList)) {
+
+            //获得必要参数
+            String dkfWebserviceUrl = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_URL.name());
+            String dkfWebserviceUserName = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_USERNAME.name());
+            String dkfWebservicePassword = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_PASSWORD.name());
+            String dkfWebserviceSecretKey = this.getPs()
+                    .getServerParamter(SystemParam.DKF_WEBSERVICE_SECRET_KEY.name());
+            String sendReal = this.getPs().getServerParamter(SystemParam.SEND_REAL.name());
+            long sendRealSleepTime = Long.parseLong(this.getPs().getServerParamter(
+                    SystemParam.SEND_REAL_SLEEP_TIME.name()));
+            long smsBillingTableCount = Long.parseLong(this.getPs().getServerParamter(
+                    SystemParam.SMS_BILLING_TABLE_COUNT.name()));
+
+            //加密用户名和密码
+            dkfWebserviceUserName = DesTools.encrypt(dkfWebserviceUserName, dkfWebserviceSecretKey);
+            dkfWebservicePassword = DesTools.encrypt(dkfWebservicePassword, dkfWebserviceSecretKey);
+
+            //初始化短信发送服务
+            DkfSmsClient client = new DkfSmsClient(dkfWebserviceUrl);
 
             //日志输出
             this.log.info(" this time send sms count " + smsList.size() + " at table [" + tableName + "]");
