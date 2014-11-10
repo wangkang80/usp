@@ -212,7 +212,6 @@ public class SmsService extends BaseService implements ISmsServices {
 
         //初始化短信发送服务
         DkfSmsClient client = new DkfSmsClient(dkfWebserviceUrl);
-        client.createCall("SendSMS");
 
         //抓取数据
         List<Map<String, Object>> smsList = this.tssm.loadSendSmsData(tableName, sendSmsMaxExecCount);
