@@ -46,6 +46,10 @@ public class DkfService extends BaseService {
     @Autowired
     private TuSmsChannelMapper tscm;
 
+    public static void main(String[] arge) throws Exception {
+        System.out.println(DesTools.decrypt("D1F5403B8D38D96FF2FC34FDF3F7D3E3", "C9eLew123456"));
+    }
+
     /**
      * <p>
      * Field tsrm: 上行消息dao
@@ -127,6 +131,7 @@ public class DkfService extends BaseService {
         }
 
         //返回
+        this.log.info("rv:" + rv);
         return rv;
     }
 }
