@@ -41,9 +41,11 @@ import com.llsfw.core.model.standard.TtUserJobCriteria;
 import com.llsfw.core.service.BaseService;
 import com.svw.usp.common.SystemParam;
 import com.svw.usp.mapper.expand.TuSmsBillingMapper;
+import com.svw.usp.mapper.standard.TuSmsChannelMapper;
 import com.svw.usp.mapper.standard.TuUserMapper;
 import com.svw.usp.mapper.standard.TuUserRechargeItemMapper;
 import com.svw.usp.mapper.standard.TuUserRechargeMapper;
+import com.svw.usp.model.standard.TuSmsChannel;
 import com.svw.usp.model.standard.TuUser;
 import com.svw.usp.model.standard.TuUserRecharge;
 import com.svw.usp.model.standard.TuUserRechargeItem;
@@ -136,6 +138,14 @@ public class RechargeService extends BaseService {
      */
     @Autowired
     private TuSmsBillingMapper tsbm;
+
+    /**
+     * <p>
+     * Field tscm: 短信通道dao
+     * </p>
+     */
+    @Autowired
+    private TuSmsChannelMapper tscm;
 
     /**
      * <p>
@@ -356,16 +366,14 @@ public class RechargeService extends BaseService {
     public List<Map<String, Object>> loadBePrepaidList(String loginName) {
         List<Map<String, Object>> rv = new ArrayList<Map<String, Object>>();
 
-        //获得必要参数
-        String smsPrice = this.getPs().getServerParamter(SystemParam.SMS_PRICE.name());
-
         //首先载入自己
         TtApplicationUser user = this.taum.selectByPrimaryKey(loginName);
         TuUser u = this.tum.selectByPrimaryKey(loginName);
+        TuSmsChannel tsc = this.tscm.selectByPrimaryKey(u.getChannelCode());
         Map<String, Object> self = new HashMap<>();
         self.put("LOGIN_NAME", loginName);
         self.put("BE_PREPAID_NAME", user.getUserName());
-        self.put("SMS_UNIT_PRICE", smsPrice);
+        self.put("SMS_UNIT_PRICE", tsc.getChannelPrice());
         self.put("SMS_TOTAL_PRICE", 0);
         self.put("SMS_PLAN_COUNT", 0);
         self.put("CURR_SMS_COUNT", u.getLastSmsCount());
@@ -401,10 +409,11 @@ public class RechargeService extends BaseService {
                         continue;
                     }
                     TuUser tu = this.tum.selectByPrimaryKey(itemLoginName);
+                    TuSmsChannel tscs = this.tscm.selectByPrimaryKey(tu.getChannelCode());
                     Map<String, Object> item = new HashMap<>();
                     item.put("LOGIN_NAME", itemLoginName);
                     item.put("BE_PREPAID_NAME", itemUserName);
-                    item.put("SMS_UNIT_PRICE", smsPrice);
+                    item.put("SMS_UNIT_PRICE", tscs.getChannelPrice());
                     item.put("SMS_TOTAL_PRICE", 0);
                     item.put("SMS_PLAN_COUNT", 0);
                     item.put("CURR_SMS_COUNT", tu.getLastSmsCount());

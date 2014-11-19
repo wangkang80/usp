@@ -161,6 +161,27 @@ public class Constants {
      */
     public static final String SEND_SMS_STATUS_12 = "12";
 
+    /**
+     * <p>
+     * Field SEND_SMS_STATUS_13: 未关联短信发送通道
+     * </p>
+     */
+    public static final String SEND_SMS_STATUS_13 = "13";
+
+    /**
+     * <p>
+     * Field SEND_SMS_STATUS_14: 短信发送通道不存在
+     * </p>
+     */
+    public static final String SEND_SMS_STATUS_14 = "14";
+
+    /**
+     * <p>
+     * Field SEND_SMS_STATUS_15: 短信发送通道配置不完整
+     * </p>
+     */
+    public static final String SEND_SMS_STATUS_15 = "15";
+
     //--------------------------------------------
 
     /**

@@ -3,6 +3,20 @@ package com.svw.usp.model.expand;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * <p>
+ * ClassName: TuSmsSend
+ * </p>
+ * <p>
+ * Description: TODO
+ * </p>
+ * <p>
+ * Author: wangkang
+ * </p>
+ * <p>
+ * Date: 2014年11月14日
+ * </p>
+ */
 public class TuSmsSend implements Serializable {
 
     /**
@@ -11,6 +25,13 @@ public class TuSmsSend implements Serializable {
      * </p>
      */
     private String smsResponseMsgId;
+
+    /**
+     * <p>
+     * Field channelCode: 通道代码
+     * </p>
+     */
+    private String channelCode;
 
     /**
      * <p>
@@ -683,6 +704,14 @@ public class TuSmsSend implements Serializable {
 
     public void setSmsResponseMsgId(String smsResponseMsgId) {
         this.smsResponseMsgId = smsResponseMsgId;
+    }
+
+    public String getChannelCode() {
+        return channelCode;
+    }
+
+    public void setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
     }
 
 }

@@ -28,6 +28,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /openapi/** = anon
+                /openapianon/** = anon
                 /static/** = anon
                 /login = authc
                 /logout = logout

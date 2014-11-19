@@ -70,18 +70,46 @@ public class DkfSmsClient {
 
     /**
      * <p>
+     * Field dkfWebserviceUserName: 用户名
+     * </p>
+     */
+    public String dkfWebserviceUserName;
+
+    /**
+     * <p>
+     * Field dkfWebservicePassword: 密码
+     * </p>
+     */
+    public String dkfWebservicePassword;
+
+    /**
+     * <p>
+     * Field dkfWebserviceSecretKey: 秘钥
+     * </p>
+     */
+    public String dkfWebserviceSecretKey;
+
+    /**
+     * <p>
      * Description: 构造函数
      * </p>
      * 
      * @param url 地址
+     * @param dkfWebserviceUserName 用户名
+     * @param dkfWebservicePassword 密码
+     * @param dkfWebserviceSecretKey 秘钥
      * @throws AxisFault 异常
      */
-    public DkfSmsClient(String url) throws AxisFault {
+    public DkfSmsClient(String url, String dkfWebserviceUserName, String dkfWebservicePassword,
+            String dkfWebserviceSecretKey) throws AxisFault {
         this.service = new ServiceClient();
         Options options = this.service.getOptions();
         EndpointReference targetEpr = new EndpointReference(url);
         options.setTo(targetEpr);
         this.fac = OMAbstractFactory.getOMFactory();
+        this.dkfWebserviceUserName = dkfWebserviceUserName;
+        this.dkfWebservicePassword = dkfWebservicePassword;
+        this.dkfWebserviceSecretKey = dkfWebserviceSecretKey;
     }
 
     /**

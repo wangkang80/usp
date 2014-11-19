@@ -8,6 +8,7 @@ package com.svw.usp.service.scheduler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +27,11 @@ import com.svw.usp.common.SystemParam;
 import com.svw.usp.mapper.expand.TuSmsBillingMapper;
 import com.svw.usp.mapper.expand.TuSmsSendMapper;
 import com.svw.usp.mapper.standard.TuSmsArchiveMapper;
+import com.svw.usp.mapper.standard.TuSmsChannelMapper;
 import com.svw.usp.mapper.standard.TuUserMapper;
 import com.svw.usp.model.expand.TuSmsBilling;
 import com.svw.usp.model.standard.TuSmsArchive;
+import com.svw.usp.model.standard.TuSmsChannel;
 import com.svw.usp.model.standard.TuUser;
 
 /**
@@ -88,6 +91,14 @@ public class SmsService extends BaseService implements ISmsServices {
     @Autowired
     private TuUserMapper tum;
 
+    /**
+     * <p>
+     * Field tscm: 通道dao
+     * </p>
+     */
+    @Autowired
+    private TuSmsChannelMapper tscm;
+
     @Override
     public void billingSms(String tableName) throws Exception {
 
@@ -132,6 +143,8 @@ public class SmsService extends BaseService implements ISmsServices {
 
                             //获取数据
                             String msgId = item.get("SMS_MSG_ID").toString();
+                            String channelCode = item.get("CHANNEL_CODE") == null ? null : item.get("CHANNEL_CODE")
+                                    .toString();
                             String smsStatus = item.get("SMS_STATUS").toString();
                             long retryCount = Long.parseLong(item.get("SMS_RETRY_COUNT").toString());
                             int smsMobileBillingUnit = item.get("SMS_MOBILE_BILLING_UNIT") == null ? 0 : Integer
@@ -149,6 +162,7 @@ public class SmsService extends BaseService implements ISmsServices {
                             //数据流转
                             TuSmsArchive tsa = new TuSmsArchive();
                             tsa.setSmsMsgId(msgId); //消息ID
+                            tsa.setChannelCode(channelCode);
                             tsa.setSmsReceiveTime((Date) item.get("SMS_RECEIVE_TIME")); //接收消息的时间
                             tsa.setSmsSendMan(item.get("SMS_SEND_MAN").toString()); //发送人
                             tsa.setSmsMobileList(item.get("SMS_MOBILE_LIST").toString()); //号码列表
@@ -201,24 +215,15 @@ public class SmsService extends BaseService implements ISmsServices {
         //如果有数据,则做后续操作
         if (!CollectionUtils.isEmpty(smsList)) {
 
+            //短信网关连接缓存
+            Map<String, DkfSmsClient> clientCache = new HashMap<String, DkfSmsClient>();
+
             //获得必要参数
-            String dkfWebserviceUrl = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_URL.name());
-            String dkfWebserviceUserName = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_USERNAME.name());
-            String dkfWebservicePassword = this.getPs().getServerParamter(SystemParam.DKF_WEBSERVICE_PASSWORD.name());
-            String dkfWebserviceSecretKey = this.getPs()
-                    .getServerParamter(SystemParam.DKF_WEBSERVICE_SECRET_KEY.name());
             String sendReal = this.getPs().getServerParamter(SystemParam.SEND_REAL.name());
             long sendRealSleepTime = Long.parseLong(this.getPs().getServerParamter(
                     SystemParam.SEND_REAL_SLEEP_TIME.name()));
             long smsBillingTableCount = Long.parseLong(this.getPs().getServerParamter(
                     SystemParam.SMS_BILLING_TABLE_COUNT.name()));
-
-            //加密用户名和密码
-            dkfWebserviceUserName = DesTools.encrypt(dkfWebserviceUserName, dkfWebserviceSecretKey);
-            dkfWebservicePassword = DesTools.encrypt(dkfWebservicePassword, dkfWebserviceSecretKey);
-
-            //初始化短信发送服务
-            DkfSmsClient client = new DkfSmsClient(dkfWebserviceUrl);
 
             //日志输出
             this.log.info(" this time send sms count " + smsList.size() + " at table [" + tableName + "]");
@@ -231,8 +236,32 @@ public class SmsService extends BaseService implements ISmsServices {
 
                 //主要的数据
                 String msgId = item.get("SMS_MSG_ID").toString();
+                String channelCode = item.get("CHANNEL_CODE") == null ? null : item.get("CHANNEL_CODE").toString();
                 long retryCount = Long.parseLong(item.get("SMS_RETRY_COUNT").toString());
                 String smsStatus = item.get("SMS_STATUS").toString();
+
+                //获得连接对象
+                DkfSmsClient client = clientCache.get(channelCode);
+                if (client == null) {
+                    //获得通道配置对象
+                    TuSmsChannel tsc = this.tscm.selectByPrimaryKey(channelCode);
+                    String dkfWebserviceUrl = tsc.getChannelHost();
+                    String dkfWebserviceUserName = tsc.getChannelUserName();
+                    String dkfWebservicePassword = tsc.getChannelPassword();
+                    String dkfWebserviceSecretKey = tsc.getChannelSecretKey();
+
+                    //加密用户名和密码
+                    dkfWebserviceUserName = DesTools.encrypt(dkfWebserviceUserName, dkfWebserviceSecretKey);
+                    dkfWebservicePassword = DesTools.encrypt(dkfWebservicePassword, dkfWebserviceSecretKey);
+
+                    //初始化短信发送服务
+                    client = new DkfSmsClient(dkfWebserviceUrl, dkfWebserviceUserName, dkfWebservicePassword,
+                            dkfWebserviceSecretKey);
+
+                    //放入缓存
+                    clientCache.put(channelCode, client);
+                    this.log.info("put client cache code is " + channelCode);
+                }
 
                 //变量声明
                 String planTime = null;
@@ -268,16 +297,16 @@ public class SmsService extends BaseService implements ISmsServices {
                         String[] mobilesArray = mobiles.split(",");
 
                         //接口数据加密
-                        String desContent = DesTools.encrypt(content, dkfWebserviceSecretKey);
+                        String desContent = DesTools.encrypt(content, client.dkfWebserviceSecretKey);
                         for (int j = 0; j < mobilesArray.length; j++) {
-                            mobilesArray[j] = DesTools.encrypt(mobilesArray[j], dkfWebserviceSecretKey);
+                            mobilesArray[j] = DesTools.encrypt(mobilesArray[j], client.dkfWebserviceSecretKey);
                         }
 
                         //发送消息,这里判断是真发送还是模拟发送(0:假发送,1:真发送)[主要为了,应付特殊情况,如:压力测试等],
                         String result = null;
                         if (sendReal.equals(Constants.STATUS_1)) { //真发送
-                            result = client.sendSms(dkfWebserviceUserName, dkfWebservicePassword, mobilesArray,
-                                    desContent, planTime, null);
+                            result = client.sendSms(client.dkfWebserviceUserName, client.dkfWebservicePassword,
+                                    mobilesArray, desContent, planTime, null);
                         } else { //假发送
                             Thread.sleep(sendRealSleepTime);
                             result = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) + "," + 0 + ","
@@ -309,6 +338,7 @@ public class SmsService extends BaseService implements ISmsServices {
                     //数据流转,写入到计费表中
                     TuSmsBilling tsb = new TuSmsBilling();
                     tsb.setSmsMsgId(msgId); //消息ID
+                    tsb.setChannelCode(channelCode);//通道代码
                     tsb.setSmsReceiveTime((Date) item.get("SMS_RECEIVE_TIME")); //接收消息的时间
                     tsb.setSmsSendMan(item.get("SMS_SEND_MAN").toString()); //发送人
                     tsb.setSmsMobileList(mobiles); //号码列表

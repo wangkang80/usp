@@ -48,18 +48,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
                 <!-- 单次单用户结算消息的条数 -->
                 <entry key="SEND_SMS_MAX_BILLING_COUNT" value="${USP.SEND_SMS_MAX_BILLING_COUNT}" />
 
-                <!--电科发服务地址 -->
-                <entry key="DKF_WEBSERVICE_URL" value="${USP.DKF_WEBSERVICE_URL}" />
-                <!--电科发服务用户名 -->
-                <entry key="DKF_WEBSERVICE_USERNAME" value="${USP.DKF_WEBSERVICE_USERNAME}" />
-                <!--电科发服务密码 -->
-                <entry key="DKF_WEBSERVICE_PASSWORD" value="${USP.DKF_WEBSERVICE_PASSWORD}" />
-                <!--电科发服务秘钥 -->
-                <entry key="DKF_WEBSERVICE_SECRET_KEY" value="${USP.DKF_WEBSERVICE_SECRET_KEY}" />
-
-                <!-- 短信单价 -->
-                <entry key="SMS_PRICE" value="${USP.SMS_PRICE}" />
-
                 <!-- 凭证存放地址 -->
                 <entry key="BANK_TRANSFER_CERTIFICATE_PATH" value="${USP.BANK_TRANSFER_CERTIFICATE_PATH}" />
             </util:map>

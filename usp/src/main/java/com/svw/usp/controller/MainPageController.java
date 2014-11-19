@@ -6,6 +6,7 @@
 package com.svw.usp.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,20 +93,6 @@ public class MainPageController extends BaseController {
 
     /**
      * <p>
-     * Description: 激活账户
-     * </p>
-     * 
-     * @param loginName 用户名
-     * @return 操作结果
-     */
-    @RequestMapping("userInfoActivate")
-    @ResponseBody
-    public JsonResult<String> userInfoActivate(@CurrentUser String loginName) {
-        return this.mps.userInfoActivate(loginName);
-    }
-
-    /**
-     * <p>
      * Description: 返回用户扩展信息
      * </p>
      * 
@@ -114,7 +101,7 @@ public class MainPageController extends BaseController {
      */
     @RequestMapping("loadUserInfo")
     @ResponseBody
-    public List<TuUser> loadUserInfo(@CurrentUser String loginName) {
+    public List<Map<String, Object>> loadUserInfo(@CurrentUser String loginName) {
         return this.mps.loadUserInfo(loginName);
     }
 

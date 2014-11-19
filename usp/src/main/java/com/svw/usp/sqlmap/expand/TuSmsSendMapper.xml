@@ -36,6 +36,7 @@
     <select id="loadSendSmsData" resultType="java.util.HashMap">
         SELECT
         SMS_MSG_ID,
+        CHANNEL_CODE,
         SMS_MOBILE_LIST,
         SMS_CONTENT,
         SMS_SEND_MAN,
@@ -66,6 +67,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="smsMsgId != null">
                 SMS_MSG_ID,
+            </if>
+            <if test="channelCode != null">
+                CHANNEL_CODE,
             </if>
             <if test="smsMobileList != null">
                 SMS_MOBILE_LIST,
@@ -131,6 +135,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="smsMsgId != null">
                 #{smsMsgId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelCode != null">
+                #{channelCode,jdbcType=VARCHAR},
             </if>
             <if test="smsMobileList != null">
                 #{smsMobileList,jdbcType=VARCHAR},

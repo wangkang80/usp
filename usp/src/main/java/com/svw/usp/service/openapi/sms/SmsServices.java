@@ -96,7 +96,8 @@ public class SmsServices extends BaseService {
         return rv;
     }
 
-    public ResponseSendSmsVo sendSms(Date receiveDate, String userName, RequestSendSmsVo requestSendSmsVo) {
+    public ResponseSendSmsVo sendSms(Date receiveDate, String userName, RequestSendSmsVo requestSendSmsVo,
+            String channelCode) {
 
         //返回值
         ResponseSendSmsVo rv = new ResponseSendSmsVo();
@@ -125,6 +126,7 @@ public class SmsServices extends BaseService {
             //填充对象
             TuSmsSend tss = new TuSmsSend();
             tss.setSmsMsgId(msgId); //消息ID
+            tss.setChannelCode(channelCode);//通道代码
             tss.setSmsReceiveTime(receiveDate); //接收消息的时间
             tss.setSmsSendMan(userName); //发送人
             tss.setSmsMobileList(StringUtils.join(item.getMobiles(), ",")); //号码列表

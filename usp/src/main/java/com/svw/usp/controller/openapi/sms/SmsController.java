@@ -25,10 +25,12 @@ import com.alibaba.fastjson.TypeReference;
 import com.llsfw.core.common.Constants;
 import com.llsfw.core.controller.base.BaseController;
 import com.svw.usp.common.DesTools;
+import com.svw.usp.mapper.standard.TuSmsChannelMapper;
 import com.svw.usp.model.expand.RequestSendSmsVo;
 import com.svw.usp.model.expand.ResponseSendSmsVo;
 import com.svw.usp.model.expand.ResponseUserSmsCountVo;
 import com.svw.usp.model.expand.ResponseUserSmsDetailVo;
+import com.svw.usp.model.standard.TuSmsChannel;
 import com.svw.usp.service.MainPageService;
 import com.svw.usp.service.openapi.sms.SmsServices;
 
@@ -65,6 +67,14 @@ public class SmsController extends BaseController {
      */
     @Autowired
     private MainPageService mps;
+
+    /**
+     * <p>
+     * Field tscm: 通道dao
+     * </p>
+     */
+    @Autowired
+    private TuSmsChannelMapper tscm;
 
     /**
      * <p>
@@ -119,8 +129,27 @@ public class SmsController extends BaseController {
 
             //获得作用域中的用户名
             String userName = httpServletRequest.getAttribute("userName").toString();
+            String channelCode = httpServletRequest.getAttribute("channelCode").toString();
             String secretKey = httpServletRequest.getAttribute("secretKey").toString();
             String lastSmsCount = httpServletRequest.getAttribute("lastSmsCount").toString();
+
+            //获得通道相关信息
+            TuSmsChannel tsc = this.tscm.selectByPrimaryKey(channelCode);
+
+            //短信发送通道不存在
+            if (tsc == null) {
+                responseSendSmsVo = new ResponseSendSmsVo();
+                responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_14);
+                throw new Exception("短信发送通道不存在");
+            }
+
+            //判断通道配置是否完整
+            if (StringUtils.isEmpty(tsc.getChannelHost()) || StringUtils.isEmpty(tsc.getChannelUserName())
+                    || StringUtils.isEmpty(tsc.getChannelPassword()) || StringUtils.isEmpty(tsc.getChannelSecretKey())) {
+                responseSendSmsVo = new ResponseSendSmsVo();
+                responseSendSmsVo.setResponseStatus(com.svw.usp.common.Constants.SEND_SMS_STATUS_15);
+                throw new Exception("短信发送通道配置不完整");
+            }
 
             //获得请求数据
             String requestData = null;
@@ -203,7 +232,7 @@ public class SmsController extends BaseController {
             }
 
             //保存
-            responseSendSmsVo = this.ss.sendSms(receiveDate, userName, requestSendSmsVo);
+            responseSendSmsVo = this.ss.sendSms(receiveDate, userName, requestSendSmsVo, channelCode);
 
         } catch (Throwable e) {
 

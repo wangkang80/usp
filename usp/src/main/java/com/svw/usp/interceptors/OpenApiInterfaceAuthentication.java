@@ -98,7 +98,14 @@ public class OpenApiInterfaceAuthentication implements HandlerInterceptor {
                 throw new Exception("用户不存在或者未激活");
             }
 
-            ////进行md5密码比对
+            //判断是否关联短信发送通道
+            if (null == user.getChannelCode()) {
+                responseVo = new ResponseVo();
+                responseVo.setResponseStatus(Constants.SEND_SMS_STATUS_13);
+                throw new Exception("未关联短信发送通道");
+            }
+
+            //进行md5密码比对
             if (!user.getInterfacePassword().equals(password)) {
                 responseVo = new ResponseVo();
                 responseVo.setResponseStatus(Constants.SEND_SMS_STATUS_3);
@@ -107,6 +114,7 @@ public class OpenApiInterfaceAuthentication implements HandlerInterceptor {
 
             //存储相关值
             httpServletRequest.setAttribute("userName", userName);
+            httpServletRequest.setAttribute("channelCode", user.getChannelCode());
             httpServletRequest.setAttribute("secretKey", user.getInterfaceSecretKey());
             httpServletRequest.setAttribute("lastSmsCount", user.getLastSmsCount());
 
