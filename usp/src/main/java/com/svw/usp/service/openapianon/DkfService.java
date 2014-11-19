@@ -46,10 +46,6 @@ public class DkfService extends BaseService {
     @Autowired
     private TuSmsChannelMapper tscm;
 
-    public static void main(String[] arge) throws Exception {
-        System.out.println(DesTools.decrypt("D1F5403B8D38D96FF2FC34FDF3F7D3E3", "C9eLew123456"));
-    }
-
     /**
      * <p>
      * Field tsrm: 上行消息dao
@@ -87,7 +83,8 @@ public class DkfService extends BaseService {
         String rv = "200k";
 
         //必要参数校验
-        if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(content)) {
+        if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(content) && !"null".equals(mobile)
+                && !"null".equals(content)) {
 
             //获取通道对象,必须存在
             TuSmsChannel tsc = this.tscm.selectByPrimaryKey(channelcode);
@@ -104,7 +101,7 @@ public class DkfService extends BaseService {
 
                     //格式化时间
                     Date motimeDate = null;
-                    if (!StringUtils.isEmpty(motime)) {
+                    if (!StringUtils.isEmpty(motime) && !"null".equals(motime)) {
                         motimeDate = new SimpleDateFormat("yyyyMMddHHmmss").parse(motime);
                     }
 
@@ -119,7 +116,6 @@ public class DkfService extends BaseService {
                     tsr.setSmsReceiveTimePt(new Date());
                     tsr.setSmsReceiveTimeYys(motimeDate);
                     tsrm.insertSelective(tsr);
-
                 } else {
                     rv = "秘钥不存在";
                 }
