@@ -10,9 +10,15 @@
 <body>
 	<div id="smsChannelTable_param" style="padding: 5px; height: auto;">
 		<a id="smsChannelTable_search_btn" href="#" data-options="plain:true" class="easyui-linkbutton">查询</a>
-		<a id="smsChannelTable_add_btn" href="#" data-options="plain:true" class="easyui-linkbutton">新增</a>
-		<a id="smsChannelTable_edit_btn" href="#" data-options="plain:true" class="easyui-linkbutton">修改</a>
-		<a id="smsChannelTable_delete_btn" href="#" data-options="plain:true" class="easyui-linkbutton">删除</a>
+		<shiro:hasPermission name="smsChannelController:add">
+			<a id="smsChannelTable_add_btn" href="#" data-options="plain:true" class="easyui-linkbutton">新增</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="smsChannelController:edit">
+			<a id="smsChannelTable_edit_btn" href="#" data-options="plain:true" class="easyui-linkbutton">修改</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="smsChannelController:delete">
+			<a id="smsChannelTable_delete_btn" href="#" data-options="plain:true" class="easyui-linkbutton">删除</a>
+		</shiro:hasPermission>
 		<a id="userSmsCount" href="#" data-options="plain:true" class="easyui-linkbutton"></a>
 	</div>
 	<table id="smsChannelTable"></table>

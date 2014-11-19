@@ -10,9 +10,15 @@
 <body>
 	<div id="accountTable_param" style="padding: 5px; height: auto;">
 		<a id="accountTable_search_btn" href="#" data-options="plain:true" class="easyui-linkbutton">查询</a>
-		<a id="accountTable_activate_btn" href="#" data-options="plain:true" class="easyui-linkbutton">激活</a>
-		<a id="accountTable_freeze_btn" href="#" data-options="plain:true" class="easyui-linkbutton">冻结</a>
-		<a id="accountTable_change_sms_channel_btn" href="#" data-options="plain:true" class="easyui-linkbutton">变更短信通道</a>
+		<shiro:hasPermission name="accountController:activate">
+			<a id="accountTable_activate_btn" href="#" data-options="plain:true" class="easyui-linkbutton">激活</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="accountController:freeze">
+			<a id="accountTable_freeze_btn" href="#" data-options="plain:true" class="easyui-linkbutton">冻结</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="accountController:changeSmsChannel">
+			<a id="accountTable_change_sms_channel_btn" href="#" data-options="plain:true" class="easyui-linkbutton">变更短信通道</a>
+		</shiro:hasPermission>
 		<br />
 		登陆名:
 		<input type="text" id="loginNameSearch" name="loginNameSearch" size="15" />
