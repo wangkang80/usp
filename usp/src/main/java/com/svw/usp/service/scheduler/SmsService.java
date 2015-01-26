@@ -317,10 +317,13 @@ public class SmsService extends BaseService implements ISmsServices {
                         sendDate = new Date();
 
                         //处理结果
+                        this.log.info("DKF RESULT : " + result);
                         String[] results = result.split(",");
                         responseDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(results[0]);
                         responseStatus = results[1];
-                        responseMsgId = results[2];
+                        if (results.length >= 3) { //有可能没有MSG_ID
+                            responseMsgId = results[2];
+                        }
 
                         //判断发送结果,短信平台反馈发送是失败,则这条消息就是发送失败的
                         if (responseStatus.equals(Constants.STATUS_0)) {
@@ -354,7 +357,7 @@ public class SmsService extends BaseService implements ISmsServices {
                     tsb.setSmsSendTime(sendDate); //发送时间
                     tsb.setSmsResponseStatus(responseStatus); //响应状态
                     tsb.setSmsResponseTime(responseDate); //响应时间
-                    tsb.setSmsResponseMsgId(responseMsgId); //响应消息ID
+                    tsb.setSmsResponseMsgId(responseMsgId); //响应消息ID 2015年1月26日 responseMsgId有可能为空
                     tsb.setSmsRetryCount(retryCount + ""); //重试次数
                     //tss.setSmsArchiveTime(smsArchiveTime); //归档时间
                     //tss.setSmsBillingTime(smsBillingTime); //结算时间
